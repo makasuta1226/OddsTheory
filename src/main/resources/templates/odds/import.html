@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>オッズ取り込み</title>
+	<style>
+		body {
+			text-align: center;
+			padding-top: 80px;
+			font-size: 24px;
+		}
+
+		.btn {
+			padding: 15px 50px;
+			color: #fff;
+			text-decoration: none;
+			border-radius: 10px;
+			font-size: 22px;
+			display: inline-block;
+			margin: 10px;
+		}
+
+		.start { background: #28a745; }
+		.back  { background: #555; }
+	</style>
+</head>
+
+<body>
+
+	<h2>オッズ取り込み画面</h2>
+	<h5>Excelからオッズデータを読み込みます。</h5>
+
+	<!-- 取り込み開始（POST /odds/read） -->
+	<form action="/odds/read" method="post">
+		<button type="submit" class="btn start">▶ オッズ取り込み開始</button>
+	</form>
+
+	<br>
+
+	<!-- TOPへ戻る -->
+	<a th:href="@{/top}" class="btn back">🏠 TOPへ戻る</a>
+
+</body>
+</html>

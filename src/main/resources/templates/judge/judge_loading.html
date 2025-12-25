@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>レース判定中</title>
+	
+	<style>
+		body {
+			text-align: center;
+			padding-top: 50px;
+			font-size: 50px;
+		}
+
+		/* アニメーション部分 */
+		.dots::after {
+			font-size: 30px;
+			content: '';
+			animation: dotsAnim 1.2s infinite;
+		}
+
+		@keyframes dotsAnim {
+			0% { content: ''; }
+			25% { content: '.'; }
+			50% { content: '..'; }
+			75% { content: '...'; }
+			100% { content: ''; }
+        }
+	</style>
+</head>
+
+<body>
+
+	<script>
+		setTimeout(function () {
+			window.location.href = "/judge/result";
+		}, 3000);
+	</script>
+
+	<p class="dots">🔄 判定中</p>
+
+</body>
+
+</html>

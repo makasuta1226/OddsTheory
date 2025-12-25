@@ -1,0 +1,234 @@
+@charset "UTF-8";
+
+/* =====================================================
+   枠色（共通）
+===================================================== */
+.waku1 {
+	background: #fff;
+	color: #000;
+}
+
+.waku2 {
+	background: #000;
+	color: #fff;
+}
+
+.waku3 {
+	background: #f00;
+	color: #fff;
+}
+
+.waku4 {
+	background: #2b67f4;
+	color: #fff;
+}
+
+.waku5 {
+	background: #ffea00;
+	color: #000;
+}
+
+.waku6 {
+	background: #477e1d;
+	color: #fff;
+}
+
+.waku7 {
+	background: #ff8000;
+	color: #000;
+}
+
+.waku8 {
+	background: #ff80ff;
+	color: #000;
+}
+
+/* =====================================================
+   全体
+===================================================== */
+body {
+	font-family: Meiryo, sans-serif;
+	background: #f8f9fa;
+	text-align: center;
+	padding-top: 30px;
+}
+
+/* =====================================================
+   ★ 重要：判定エリア内の table 枠を無効化
+===================================================== */
+.judge-area table,
+.judge-area th,
+.judge-area td {
+	border: none !important;
+}
+
+/* =====================================================
+   馬番ボックス（□で統一）
+===================================================== */
+.waku-box {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	box-sizing: border-box;
+	font-weight: bold;
+
+	border-radius: 6px;
+	border: 2px solid #333;
+
+	width: 44px;
+	height: 44px;
+	font-size: 1rem;
+}
+
+/* 推奨1番手 */
+.waku-box.large {
+	width: 72px;
+	height: 72px;
+	font-size: 2.4rem;
+	border-width: 3px;
+}
+
+/* 2番手以下（約70%） */
+.waku-box.small {
+	width: 44px;
+	height: 44px;
+	font-size: 1.4rem;
+}
+
+/* =====================================================
+   推奨1番手表示
+===================================================== */
+.top-recommended {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	/* gap を詰める */
+	gap: 20px;
+
+	width: 90%;
+	max-width: 760px;
+
+	/* 上下の余白を個別指定 */
+	margin: 12px auto 10px;
+	padding: 16px 20px;
+
+	background: #fff3cd;
+	border: 3px solid #f0ad4e;
+	border-radius: 18px;
+
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
+}
+
+
+.top-name {
+	font-size: 2.6rem;
+	font-weight: bold;
+}
+
+.top-percent {
+	font-size: 2.6rem;
+	font-weight: bold;
+	color: #d9534f;
+}
+
+/* =====================================================
+   推奨2番手以下リスト
+===================================================== */
+.other-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	width: 60%;
+	max-width: 800px;
+
+	/* 余白を締める */
+	margin: 2px auto;
+	padding: 8px 24px;
+
+	/* 見た目を整える */
+	background: #ffffff;
+	border-radius: 14px;
+	border: 2px solid #e0e0e0;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+	box-sizing: border-box;
+}
+
+
+/* 左側（馬番＋馬名） */
+.left-area {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.horse-name {
+	font-size: 1.2rem;
+	text-align: left;
+	white-space: nowrap;
+}
+
+/* 右側（％） */
+.other-percent {
+	min-width: 90px;
+	text-align: right;
+	font-size: 1.3rem;
+	font-weight: bold;
+}
+
+/* =====================================================
+   レース判定表示
+===================================================== */
+.race-judge-box {
+	width: 420px;
+	margin: 0 auto 12px;
+	border-radius: 12px;
+	border: 3px solid;
+	font-weight: bold;
+}
+
+.race-judge-label {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 6px;
+	border-radius: 12px;
+	font-size: 40px;
+	font-weight: 300;
+}
+
+.race-judge-box.race-honmei .race-judge-label {
+	background-color:aquamarine;
+	color:#2b67f4;
+	font-weight: bold;
+}
+
+.race-judge-box.race-chuana .race-judge-label {
+	background-color: #f0ad4e;
+	color: #fff;
+	font-weight: bold;
+}
+
+.race-judge-box.race-ana .race-judge-label {
+	background-color:chocolate;
+	color:brown;
+	font-weight: bold;
+}
+
+.race-judge-box.race-miosori .race-judge-label {
+	background-color: #6c757d;
+	color: #000;
+	font-weight: normal;
+	opacity: 0.8;
+}
+
+
+/* =====================================================
+   推奨1番手 → 2番手以下 の間隔調整
+===================================================== */
+.judge-area {
+	margin-top: 4px;
+}

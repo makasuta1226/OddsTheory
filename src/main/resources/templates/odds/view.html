@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+	<link rel="stylesheet" th:href="@{/css/odds-view.css}">
+	<title>オッズ表示</title>
+</head>
+
+<body>
+
+	<div class="race-header">
+		<div class="race-title" th:text="${raceHeader}"></div>
+	</div>
+
+	<div class="judge-area">
+		<div class="judge-message">
+			このオッズで判定を行いますか？
+		</div>
+
+		<div class="judge-buttons">
+			<button class="reload" onclick="location.href='/odds/import'">
+				🔁 取込画面へ
+			</button>
+
+			<form action="/judge/start" method="post" style="display:inline;">
+				<button type="submit" class="judge">
+					▶ 判定開始
+				</button>
+			</form>
+
+			<button class="top" onclick="location.href='/top'">
+				🏠 TOPへ戻る
+			</button>
+		</div>
+	</div>
+	<br>
+
+
+	<!-- =========================
+	     単勝・複勝
+	     ========================= -->
+	<h2>単勝・複勝オッズ</h2>
+
+	<table class="tan-fuku-table">
+		<tr>
+			<th>馬番</th>
+			<th>馬名</th>
+			<th>騎手名</th>
+			<th>単勝</th>
+			<th>複勝</th>
+		</tr>
+
+		<tr th:each="o : ${tanFukuList}">
+			<td th:text="${o.uma}" th:class="'waku' + ${o.waku}"></td>
+			<td th:text="${o.name}"></td>
+			<td th:text="${o.jockey}"></td>
+
+			<!-- 単勝 -->
+			<td>
+				<span th:if="${o.tansho > 0}" th:text="${o.tansho}"
+					th:classappend="${o.tansho <= 10} ? 'red-odds' : ''"></span>
+				<span th:if="${o.tansho == 0}" class="cancel">
+					取消
+				</span>
+			</td>
+
+			<!-- 複勝 -->
+			<td>
+				<span th:if="${o.fukuHigh > 0}" th:text="${o.fukuLow} + ' - ' + ${o.fukuHigh}"
+					th:classappend="${o.fukuLow <= 10} ? 'red-odds' : ''"></span>
+				<span th:if="${o.fukuHigh == 0}" class="cancel">
+					取消
+				</span>
+			</td>
+		</tr>
+	</table>
+	<br>
+
+	<!-- =========================
+	     馬連
+	     ========================= -->
+	<h2>馬連オッズ</h2>
+	<div class="umaren-container">
+
+		<!-- 上段：1〜9 -->
+		<div class="umaren-wrapper">
+			<div class="umaren-block" th:each="entry : ${umarenMap}"
+				th:if="${entry.key <= 9 and tanFukuList[entry.key - 1].tansho > 0}">
+
+				<div class="umaren-inner">
+					<div class="axis-header" th:text="${entry.key}"
+						th:classappend="' waku' + ${tanFukuList[entry.key - 1].waku}">
+					</div>
+
+					<div th:each="u : ${entry.value}" th:if="${u.odds > 0}" class="pair-row" th:classappend="${u.odds <= 10} ? ' under10' :
+	                                 (${u.odds <= 100} ? ' under100' : '')">
+						<span th:text="${u.pairHorseNo}"></span>
+						<span th:text="${u.odds}"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- 下段：10以上 -->
+		<div class="umaren-wrapper">
+			<div class="umaren-block" th:each="entry : ${umarenMap}"
+				th:if="${entry.key >= 10 and tanFukuList[entry.key - 1].tansho > 0}">
+
+				<div class="umaren-inner">
+					<div class="axis-header" th:text="${entry.key}"
+						th:classappend="' waku' + ${tanFukuList[entry.key - 1].waku}">
+					</div>
+
+					<div th:each="u : ${entry.value}" th:if="${u.odds > 0}" class="pair-row" th:classappend="${u.odds <= 10} ? ' under10' :
+	                                 (${u.odds <= 100} ? ' under100' : '')">
+						<span th:text="${u.pairHorseNo}"></span>
+						<span th:text="${u.odds}"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

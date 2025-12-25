@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+	<link rel="stylesheet" th:href="@{/css/odds-view.css}">
+	<link rel="stylesheet" th:href="@{/css/judge.css}">
+	<title>判定結果</title>
+</head>
+
+<body>
+
+	<h1>レース判定結果</h1>
+
+	<!-- レース判定 -->
+	<div class="race-judge-box"
+		th:classappend="${raceJudge != null} ? ' race-' + ${raceJudge.name().toLowerCase()} : ''">
+		<span class="race-judge-label" th:text="${raceJudge != null} ? ${raceJudge.label} : '再実行処理エラー'"></span>
+	</div>
+
+	<!-- Excel 開いている警告 -->
+	<div th:if="${excelWarning != null}" class="excel-warning">
+		⚠️ <span th:text="${excelWarning}"></span>
+	</div>
+
+	<!-- ==================================================
+	     推奨1番手
+	================================================== -->
+	<div th:if="${ranking != null and !ranking.isEmpty()}" class="top-recommended">
+		<span class="waku-box large" th:text="${ranking.get(0).uma}"
+			th:classappend="${ranking.get(0).waku != null} ? ' waku' + ${ranking.get(0).waku} : ''"></span>
+
+		<span class="top-name" th:text="${ranking.get(0).name}"></span>
+
+		<span class="top-percent" th:text="${#numbers.formatDecimal(ranking.get(0).percent, 1, 1)} + ' %'"></span>
+	</div>
+
+	<!-- ==================================================
+	     推奨2番手以下（40%以上）
+	================================================== -->
+	<div class="judge-area">
+
+		<div th:each="r, stat : ${ranking}" th:if="${stat.index > 0 and r.percent >= 40}" class="other-row">
+
+			<div class="left-area">
+				<span class="waku-box small" th:text="${r.uma}"
+					th:classappend="${r.waku != null} ? ' waku' + ${r.waku} : ''"></span>
+
+				<span class="horse-name" th:text="${r.name}"></span>
+			</div>
+
+			<span class="other-percent" th:text="${#numbers.formatDecimal(r.percent, 1, 1)} + ' %'"></span>
+		</div>
+
+	</div>
+
+	<!-- ボタン -->
+	<div class="judge-buttons">
+		<form action="/judge/resetAndGo" method="get">
+			<button type="submit" class="reload">🔁 取込画面へ</button>
+		</form>
+		<form action="/judge/clearAndTop" method="get">
+			<button type="submit" class="top">🏠 TOPへ戻る</button>
+		</form>
+	</div>
+
+</body>
+
+</html>

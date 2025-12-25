@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>トップ画面</title>
+
+	<style>
+		body {
+			text-align: center;
+			font-size: 26px;
+			padding-top: 80px;
+		}
+
+		.btn-start {
+			font-size: 22px;
+			padding: 15px 50px;
+			background: #007bff;
+			color: white;
+			border: none;
+			border-radius: 10px;
+			text-decoration: none;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<h1>オッズ理論競馬予想</h1>
+	<p>STARTボタンを押してください</p>
+
+	<a th:href="@{/odds/import}" class="btn-start">▶ START</a>
+
+</body>
+
+</html>

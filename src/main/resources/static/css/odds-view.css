@@ -1,0 +1,206 @@
+@charset "UTF-8";
+
+/* ===== レース名ヘッダー ===== */
+.race-header {
+	text-align: center;
+	margin: 20px auto 20px;
+}
+
+.race-title {
+	font-size: 26px;
+	font-weight: bold;
+	line-height: 1.4;
+}
+
+.race-sub {
+	font-size: 16px;
+	color: #555;
+	margin-top: 6px;
+}
+
+/* ===== テーブル見出し ===== */
+h2 {
+	margin: 4px 0 4px !important;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+/* ===== 単勝・複勝 ===== */
+.tan-fuku-table {
+	width: auto;
+	max-width: 700px;
+	margin: 0 auto;
+	table-layout: fixed;
+	font-size: 18px;
+	border: 1px solid #333;
+	border-collapse: collapse;
+}
+
+/* 馬番 */
+.tan-fuku-table th:nth-child(1),
+.tan-fuku-table td:nth-child(1) {
+	width: 50px;
+	text-align: center;
+}
+
+/* 馬名 */
+.tan-fuku-table th:nth-child(2),
+.tan-fuku-table td:nth-child(2) {
+	width: 200px;
+	/* 最大幅を固定 */
+	text-align: center;
+	padding-left: 8px;
+	padding-right: 4px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* 騎手名 */
+.tan-fuku-table th:nth-child(3),
+.tan-fuku-table td:nth-child(3) {
+	width: 150px;
+	text-align: center;
+	padding-left: 8px;
+}
+
+/* 単勝・複勝 */
+.tan-fuku-table th:nth-child(4),
+.tan-fuku-table th:nth-child(5),
+.tan-fuku-table td:nth-child(4),
+.tan-fuku-table td:nth-child(5) {
+	width: 80px;
+	text-align: center;
+	white-space: nowrap;
+	font-variant-numeric: tabular-nums;
+}
+
+/* テーブルセルの罫線 */
+.tan-fuku-table th,
+.tan-fuku-table td {
+	border: 1px solid #333;
+	padding: 6px 4px;
+	box-sizing: border-box;
+}
+
+/* ===== 馬連 ===== */
+.umaren-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 50px;
+}
+
+.umaren-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	justify-content: flex-start;
+	margin-bottom: 20px;
+}
+
+/* 各軸馬ブロック */
+.umaren-block {
+	width: 110px;
+}
+
+/* 枠本体 */
+.umaren-inner {
+	border: 2px solid #666;
+	background: #fff;
+}
+
+/* 軸馬ヘッダー */
+.axis-header {
+	padding: 4px;
+	font-size: 14px;
+	text-align: center;
+	font-weight: bold;
+	border-bottom: 2px solid #666;
+}
+
+/* 馬連行 */
+.pair-row {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	border-bottom: 1px solid #ddd;
+}
+
+.pair-row:last-child {
+	border-bottom: none;
+}
+
+.pair-row span {
+	padding: 2px 4px;
+	font-variant-numeric: tabular-nums;
+}
+
+.pair-row span:first-child {
+	border-right: 1px solid #ccc;
+	font-weight: bold;
+}
+
+.pair-row span:last-child {
+	text-align: right;
+}
+
+/* オッズ強調 */
+.under100 {
+	background: #fff4e6;
+}
+
+.under10 {
+	background: #ffd6d6;
+	font-weight: bold;
+}
+
+/* 取消（単勝・複勝用） */
+.cancel {
+	color: #999;
+	background-color: #f3f3f3;
+	padding: 2px 6px;
+	border-radius: 4px;
+}
+
+/* ===== 判定エリア ===== */
+.judge-area {
+	text-align: center;
+	margin: 20px auto 20px;
+}
+
+.judge-message {
+	color: #e53935;
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.judge-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 30px;
+}
+
+.judge-buttons button {
+	font-size: 20px;
+	padding: 14px 36px;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.judge-buttons button.reload {
+	background: #28a745;
+	color: #fff;
+}
+
+.judge-buttons button.judge {
+	background: #e53935;
+	color: #fff;
+	font-size: 22px;
+	padding: 16px 42px;
+}
+
+.judge-buttons button.top {
+	background: #555;
+	color: #fff;
+}

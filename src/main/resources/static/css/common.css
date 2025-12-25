@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+/* ===== 全体共通 ===== */
+body {
+	font-family: Meiryo, sans-serif;
+	background: #f8f9fa;
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+	margin-top: 30px;
+}
+
+/* ===== テーブル共通 ===== */
+table {
+	margin: 20px auto;
+	border-collapse: collapse;
+	background: #fff;
+}
+
+th,
+td {
+	padding: 4px;
+	text-align: center;
+	border: 1px solid #999;
+}
+
+th {
+	background: #eee;
+}
+
+/* ===== 枠色（全画面共通資産） ===== */
+.waku1 {
+	background: #fff;
+	color: #000;
+}
+
+.waku2 {
+	background: #000;
+	color: #fff;
+}
+
+.waku3 {
+	background: #f00;
+	color: #fff;
+}
+
+.waku4 {
+	background: #2b67f4;
+	color: #fff;
+}
+
+.waku5 {
+	background: #ffea00;
+	color: #000;
+}
+
+.waku6 {
+	background: #477e1d;
+	color: #fff;
+}
+
+.waku7 {
+	background: #ff8000;
+	color: #000;
+}
+
+.waku8 {
+	background: #ff80ff;
+	color: #000;
+}
+
+/* ===== オッズ共通 ===== */
+.red-odds {
+	color: red;
+	font-weight: bold;
+}
+
+/* ===== ボタン共通 ===== */
+button {
+	font-family: inherit;
+	cursor: pointer;
+	border: none;
+	border-radius: 8px;
+}
+
+button:hover {
+	opacity: 0.85;
+}
