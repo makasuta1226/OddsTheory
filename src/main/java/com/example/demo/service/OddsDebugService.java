@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,54 +32,64 @@ public class OddsDebugService {
 		}
 
 		// 単勝1番人気馬を軸に特定
-		Integer favoriteHorse = tanshoOdds.stream()
+		final Integer axisHorse = tanshoOdds.stream()
 				.min((o1, o2) -> Double.compare(o1.getTansho(), o2.getTansho()))
 				.map(Odds::getUma)
 				.orElse(null);
 
-		if (favoriteHorse == null) {
+		if (axisHorse == null) {
 			System.out.println("単勝1番人気馬が特定できません");
 			return;
 		}
 
-		// 軸馬1番人気の全ペアを抽出（軸左・右どちらでも対応）
-		final Integer axisHorse = favoriteHorse;
+		// 軸馬全組み合わせ（オッズ順）
 		List<UmarenOdds> axisPairs = allPairs.stream()
 				.filter(u -> axisHorse.equals(u.getBaseHorseNo()) || axisHorse.equals(u.getPairHorseNo()))
 				.sorted((u1, u2) -> Double.compare(u1.getOdds(), u2.getOdds()))
 				.collect(Collectors.toList());
 
-		// --- ⑤ 相手上位2頭の組み合わせオッズを抽出して先頭にセット ---
-		// 相手1位と相手2位を特定（軸馬とのオッズで昇順に取得）
+		if (axisPairs.isEmpty()) {
+			System.out.println("軸馬の組み合わせオッズがありません");
+			return;
+		}
+
+		// --- 上位2頭の馬番号を取得（オッズ順で1位・2位）
 		List<Integer> top2Opponents = axisPairs.stream()
 				.map(u -> u.getBaseHorseNo().equals(axisHorse) ? u.getPairHorseNo() : u.getBaseHorseNo())
 				.distinct()
 				.limit(2)
 				.collect(Collectors.toList());
 
-		List<UmarenOdds> topPairs = allPairs.stream()
-				.filter(u -> (top2Opponents.contains(u.getBaseHorseNo()) && top2Opponents.contains(u.getPairHorseNo())))
-				.sorted((u1, u2) -> Double.compare(u1.getOdds(), u2.getOdds()))
-				.collect(Collectors.toList());
+		// --- 全体オッズから上位2頭の組み合わせを取得（軸馬基準）
+		List<UmarenOdds> topPairs = new ArrayList<>();
+		for (int oppNo : top2Opponents) {
+			allPairs.stream()
+					.filter(u -> (u.getBaseHorseNo().equals(axisHorse) && u.getPairHorseNo() == oppNo)
+							|| (u.getPairHorseNo().equals(axisHorse) && u.getBaseHorseNo() == oppNo))
+					.findFirst()
+					.ifPresent(topPairs::add);
+		}
 
-		// 軸ペアリストの先頭にtopPairsを挿入（重複は除外）
-		topPairs.forEach(tp -> {
-			boolean exists = axisPairs.stream()
-					.anyMatch(ap -> (ap.getBaseHorseNo().equals(tp.getBaseHorseNo())
-							&& ap.getPairHorseNo().equals(tp.getPairHorseNo())) ||
-							(ap.getBaseHorseNo().equals(tp.getPairHorseNo())
-									&& ap.getPairHorseNo().equals(tp.getBaseHorseNo())));
-			if (!exists) {
-				axisPairs.add(0, tp);
-			}
-		});
+		// --- 軸ペアリストの先頭にtopPairsを追加（重複除外）
+		List<UmarenOdds> finalPairs = new ArrayList<>(topPairs);
+		for (UmarenOdds u : axisPairs) {
+			boolean exists = finalPairs.stream()
+					.anyMatch(f -> (f.getBaseHorseNo().equals(u.getBaseHorseNo())
+							&& f.getPairHorseNo().equals(u.getPairHorseNo()))
+							|| (f.getBaseHorseNo().equals(u.getPairHorseNo())
+									&& f.getPairHorseNo().equals(u.getBaseHorseNo())));
+			if (!exists)
+				finalPairs.add(u);
+		}
 
 		// --- 表示 ---
 		System.out.println("===== 馬連 1番人気軸: " + axisHorse + " (人気順付き) =====");
 		int rank = 1;
-		for (UmarenOdds u : axisPairs) {
+		for (UmarenOdds u : finalPairs) {
 			int pairHorse = u.getBaseHorseNo().equals(axisHorse) ? u.getPairHorseNo() : u.getBaseHorseNo();
-			System.out.printf("人気:%d 軸:%d 相手:%d オッズ:%.1f%n", rank++, axisHorse, pairHorse, u.getOdds());
+			// 人気1位の相手だけ空文字
+			String pairStr = (rank == 1) ? "" : String.valueOf(pairHorse);
+			System.out.printf("人気:%d 軸:%d 相手:%s オッズ:%.1f%n", rank++, axisHorse, pairStr, u.getOdds());
 		}
 	}
 
