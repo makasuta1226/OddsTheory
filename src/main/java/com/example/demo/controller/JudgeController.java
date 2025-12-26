@@ -88,7 +88,7 @@ public class JudgeController {
 
 			// セッションから取得後すぐ
 			oddsDebugService.printTanshoFukusho(tanshoOdds);
-			oddsDebugService.printUmaren(tanshoOdds, umarenOddsMap);
+			oddsDebugService.printUmarenWithRank(tanshoOdds, umarenOddsMap);
 
 			// --- 判定処理 ---
 			Map<Integer, Double> tanshoPointMap = tanshoJudgeService.judge(tanshoOdds);
