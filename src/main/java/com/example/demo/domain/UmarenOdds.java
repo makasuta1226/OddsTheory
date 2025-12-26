@@ -70,6 +70,16 @@ public class UmarenOdds {
 	/* ===== 補助メソッド ===== */
 
 	/**
+	 * baseHorseNo と pairHorseNo を入れ替える
+	 * 軸馬を強制的に base に揃えたい場合に使用
+	 */
+	public void swapBasePair() {
+		Integer temp = this.baseHorseNo;
+		this.baseHorseNo = this.pairHorseNo;
+		this.pairHorseNo = temp;
+	}
+
+	/**
 	 * 指定した軸馬に対応する全てのペア（取消馬を除外）を取得
 	 * @param allOdds 全UmarenOddsリスト
 	 * @param axisHorseNo 軸馬番号
